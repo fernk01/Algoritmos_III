@@ -1,0 +1,35 @@
+@startuml
+class Alumno {
+  -padron: int
+  -carrerasActivas: ArrayList<Carrera>
+  -materiasAprobadas: ArrayList<Materia>
+  +inscribir(Carrera): boolean
+  +aprobar(Materia): boolean
+  +getEstadoCarrera(Carrera): String
+}
+
+class Materia {
+  -codigo: String
+  -nombre: String
+  -creditos: int
+  +printMaterial()
+  +getCreditos(): int
+  +getCodigo(): String
+}
+
+class Carrera {
+  -nombre: String
+  -materiasObligatorias: Materia[]
+  -materiasOptativas: Materia[]
+  -codigo: String
+  -creditosNecesarios: int
+  +printCarrera()
+  +getCodigo(): String
+}
+
+Carrera "1" o- "*" Materia
+Alumno "1" o- "*" Carrera
+Alumno "1" o- "*" Materia
+
+@enduml
+

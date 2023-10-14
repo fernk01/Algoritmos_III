@@ -1,0 +1,33 @@
+@startuml
+class Libro {
+  -codigo: String
+  -titulo: String
+  -fechaPublicacion: Date
+  -autores: String[]
+  +mostrarInformacion(): void
+}
+
+class Biblioteca {
+  -libros: Libro[]
+  -clientes: Cliente[]
+  +agregarLibro(libro: Libro): void
+  +quitarLibro(libro: Libro): void
+  +consultarStock(titulo: String): int
+  +prestarLibro(cliente: Cliente, libro: Libro): void
+  +devolverLibro(cliente: Cliente, libro: Libro): void
+  +consultarPrestamos(cliente: Cliente): Libro[]
+}
+
+class Cliente {
+  -nombre: String
+  -apellido: String
+  -identificacion: String
+  -librosPrestados: Libro[]
+  +mostrarInformacion(): void
+}
+
+Biblioteca "1" o-- "*" Libro : contiene >
+Biblioteca "1" -- "*" Cliente : tiene >
+Cliente "1" -- "*" Libro : tiene prestado >
+@enduml
+
