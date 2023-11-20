@@ -19,3 +19,7 @@ Se pide:
 - Diagrama de clases completo incluyendo todas las clases y abstracción por más que no se utilicen en los diagramas de secuencia de los casos de uso.
 - Diagrama de secuencia para cada uno de los casos de uso.
 - Código de pruebas (positiva y negativa según corresponda) para cada uno de los casos de uso.
+
+## Solución
+En este diceño se utiliza el patrón de diseño Strategy para resolver el problema de la salamandra. Se utiliza este patrón ya que se puede cambiar el comportamiento de la salamandra en tiempo de ejecución, es decir, se puede cambiar el tipo de combustible que se utiliza para la combustión.
+Se separo en dos clases para el calculos del costo y la contaminación con un tipo de relación de composición. Tambien se puede hacer que la clase Salamandra emvie su atributo (enviar copia) combustible a la clase CalculoCosto y CalculoContaminacion para que realicen los calculos.

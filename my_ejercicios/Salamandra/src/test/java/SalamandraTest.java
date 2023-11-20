@@ -15,7 +15,7 @@ public class SalamandraTest {
             salamandra.agregarCombustible(pino);
             salamandra.agregarCombustible(resina);
 
-            assertEquals(1750, salamandra.getCostoTotal(), 0.01);
+            assertEquals(1750, salamandra.calcularCosto(), 0.01);
 
         }
 
@@ -31,7 +31,7 @@ public class SalamandraTest {
             salamandra.agregarCombustible(pino);
             salamandra.agregarCombustible(resina);
 
-            assertEquals(160, salamandra.getContaminacion(), 0.01);
+            assertEquals(160, salamandra.calcularContaminacion(), 0.01);
 
         }
 }

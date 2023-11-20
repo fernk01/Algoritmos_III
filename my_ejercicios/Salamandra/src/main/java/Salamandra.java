@@ -1,12 +1,14 @@
 import java.util.List;
 import java.util.ArrayList;
 public class Salamandra {
-
     private List<Combustible> combustibles;
-    private int capacidadMaxima = 10;
+    private CalculadoraDeCostos calculadoraDeCostos;
+    private CalculadoraDeContaminacion calculadoraDeContaminacion;
 
     public Salamandra() {
-        this.combustibles = new ArrayList<>();
+        this.combustibles = new ArrayList<Combustible>();
+        this.calculadoraDeCostos = new CalculadoraDeCostos();
+        this.calculadoraDeContaminacion = new CalculadoraDeContaminacion();
     }
 
     public void agregarCombustible(Combustible combustible) throws Exception {
@@ -28,17 +30,12 @@ public class Salamandra {
         return pesoTotal;
     }
 
-    public double getCostoTotal() {
-        double costoTotal = 0;
-        for(Combustible madera : this.combustibles) {
-            costoTotal += madera.getPrecio();
-        }
-        return costoTotal;
+    public double calcularCosto() {
+        return calculadoraDeCostos.calcularCosto(combustibles);
     }
 
-    public int getContaminacion() {
-        Combustion combustion = new Combustion();
-        return combustion.calcularContaminacion(this.combustibles);
+    public double calcularContaminacion() throws Exception {
+        return calculadoraDeContaminacion.calcularContaminacion(combustibles);
     }
 
 }
