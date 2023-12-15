@@ -1,0 +1,11 @@
+@startuml
+
+":TestCase" -> "mobile01:CelularPoo": "..."
+"mobile01:CelularPoo" -> "mobile02:CelularPoo": buscarVarias(c1, c2, ..., cn)
+loop [para cada capacidad parámetro 'x']
+        "mobile02:CelularPoo" -> "mobile02:CelularPoo": buscar(x)
+        "x:Capacidad" -> "c:Capacidad": esIgual(c)
+end
+
+
+@enduml

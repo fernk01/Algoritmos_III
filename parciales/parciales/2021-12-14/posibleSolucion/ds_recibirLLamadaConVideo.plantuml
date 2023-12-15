@@ -1,0 +1,20 @@
+@startuml
+
+":TestCase" -> "mobile01:CelularPoo": new
+create "mobile02:CelularPoo"
+":TestCase" -> "mobile02:CelularPoo": new
+":TestCase" -> "mobile01:CelularPoo": llamarConVideo(mobile02)
+create "v:Video"
+"mobile01:CelularPoo" -> "v:Video": new
+"mobile01:CelularPoo" -> "mobile01:CelularPoo": llamarACon(mobile02, v)
+"mobile01:CelularPoo" -> "mobile01:CelularPoo": mismaQue(v, mobile02)
+"mobile01:CelularPoo" -> "mobile01:CelularPoo": buscoVarias(c, v)
+"mobile01:CelularPoo" -> "mobile02:CelularPoo": buscoVarias(c, v)
+note left
+        Existe otro diaraga que describe `buscarVarias`
+end note
+"mobile01:CelularPoo" --> "mobile01:CelularPoo": [mismas capacidades]
+"mobile01:CelularPoo" --> ":TestCase": "Llamada [capacidad first nombre] en curso"
+
+
+@enduml

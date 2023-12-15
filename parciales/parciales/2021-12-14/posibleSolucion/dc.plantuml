@@ -1,0 +1,68 @@
+@startuml
+
+abstract class Capacidad {
+
+        + esIgual(otraCapacidad)
+        
+        + {abstract} nombre()
+        + {abstract} nombre(otraCapacidad)
+}
+
+class Chat {
+        + nombre()
+        + nombre(otraCapacidad)
+}
+
+class Holografica {
+        + nombre()
+        + nombre(otraCapacidad)
+}
+
+class Normal {
+        + nombre()
+        + nombre(otraCapacidad)
+}
+
+class CeluPoo {
+        
+
+        + buscar(unaCapacidad)
+        + buscarVarias(listaDeCapacidades)
+        
+        + llamarAConVideo(otroCeluPoo)
+        + llamarAConVideoYChat(otroCeluPoo)
+        
+        + llamarACon(otroCeluPoo, unaCapacidad)
+        + llamarAConY(otroCeluPoo, listaDeCapacidades)
+        + miscaCapacidadQue(listaCapacidades, otroCeluPoo)
+}
+
+note left of CeluPoo::buscar
+^capacidades detect: [ :e |
+  e = unaCapacidad
+] ifNone: [
+NoTieneEsaFuncionError signal.
+] 
+end note
+
+note left of CeluPoo::buscarVarias
+^unasCapacidades asOrderedCollection collect: [ :e |
+self buscar: e
+].
+end note
+
+note left of CeluPoo::llamarAConVideo
+^self llamarA: otroCeluPoo con: Video new.
+end note
+
+note left of CeluPoo::llamarAConVideoYChat
+^self llamarA: otroCeluPoo con: Video new y: Chat new.
+end note
+
+CeluPoo *- "1..*" Capacidad
+
+Capacidad <|-- Chat
+Capacidad <|-- Holografica
+Capacidad <|-- Normal
+
+@enduml
