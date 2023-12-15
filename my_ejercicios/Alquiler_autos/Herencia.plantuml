@@ -1,0 +1,50 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Agencia {
+  - vehiculos: List<Vehiculo>
+  + registrar(Vehiculo): void
+  - encontrarVehiculo(Vehiculo): Vehiculo?
+  + alquilarDias(String, int): double
+  - encontrarVehiculo(String): Vehiculo
+}
+class Auto {
+  - numeroPlazas: Integer
+  - tipoPlazas: TipoPlaza
+  - precioBase(int): double
+  + alquilar(int): double
+}
+class Bus {
+  + alquilar(int): double
+}
+class Camion {
+  - pma: int
+  + alquilar(int): double
+  - precioBase(int): double
+}
+class PlazaBasica
+class PlazaPremium
+class TipoPlaza {
+  - precioPlaza: int
+  + alquilar(Integer): double
+}
+class Vehiculo {
+  - unaPatenteStr: String
+  ~ alquilar(int): double
+  ~ sos(String): boolean
+  + sos(Vehiculo): boolean
+}
+class VehiculoDuplicado
+
+Agencia           "1" *-[#595959,plain]-> "vehiculos\n*" Vehiculo          
+Agencia            -[#595959,dashed]->  VehiculoDuplicado : "«create»"
+Auto              "1" *-[#595959,plain]-> "tipoPlazas\n1" TipoPlaza         
+Auto               -[#000082,plain]-^  Vehiculo          
+Bus                -[#000082,plain]-^  Vehiculo          
+Camion             -[#000082,plain]-^  Vehiculo          
+PlazaBasica        -[#000082,plain]-^  TipoPlaza         
+PlazaPremium       -[#000082,plain]-^  TipoPlaza         
+@enduml
