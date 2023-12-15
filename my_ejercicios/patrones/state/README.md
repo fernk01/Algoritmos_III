@@ -75,3 +75,60 @@ El principio "Tell, Don't Ask" (Di, no preguntes) es una guía de diseño que su
 En la **Opción B**, el contexto (`TrafficLight`) le dice al estado (`RedLight`, `GreenLight`, `YellowLight`) que cambie la luz (`changeLight()`), y el estado devuelve el nuevo estado. Luego, el contexto se actualiza con este nuevo estado. Aunque el contexto necesita preguntar al estado cuál es el próximo estado, esto no viola el principio "Tell, Don't Ask", ya que el contexto no está tomando ninguna decisión basada en el estado del objeto de estado; simplemente está actualizando su propio estado basado en el resultado de la operación `changeLight()`.
 
 Por lo tanto, aunque la **Opción B** puede parecer que viola el principio "Tell, Don't Ask" a primera vista, en realidad sigue este principio en el sentido de que el contexto no está tomando decisiones basadas en el estado del objeto de estado. En cambio, está diciéndole al objeto de estado que realice una acción (`changeLight()`) y luego se actualiza en consecuencia. Por lo tanto, la **Opción B** no viola el principio "Tell, Don't Ask".
+
+## ¿Ejemplos de que "necesidades" me harian elegir entre la opción A y la opción B?
+### Bing-ChatGpt4
+La elección entre la **Opción A** y la **Opción B** en el ejemplo de "TrafficLight" puede depender de varias necesidades o requisitos de tu diseño:
+
+1. **Control del estado**: En la **Opción A**, el estado tiene el control para cambiar el estado del contexto (`TrafficLight`). Esto puede ser útil si quieres que la lógica para cambiar de estado esté encapsulada dentro de las clases de estado en sí. Por otro lado, en la **Opción B**, el contexto (`TrafficLight`) tiene el control para cambiar su propio estado. Esto puede ser útil si quieres que el contexto tenga más control sobre sus transiciones de estado.
+
+2. **Acoplamiento**: La **Opción A** introduce un acoplamiento más fuerte entre el estado y el contexto, ya que el estado necesita tener conocimiento del contexto para cambiar su estado. Esto puede ser aceptable o incluso deseable en algunos casos, pero en otros casos, es posible que prefieras mantener un acoplamiento más débil entre el estado y el contexto. La **Opción B** mantiene un acoplamiento más débil, ya que el estado no necesita tener conocimiento del contexto.
+
+3. **Pruebas unitarias**: Si estás escribiendo pruebas unitarias para tus clases de estado, puede ser más fácil escribir pruebas para la **Opción B**. Como el estado no necesita tener conocimiento del contexto, puedes probar cada estado de forma aislada. Por otro lado, con la **Opción A**, es posible que necesites crear un objeto de contexto para probar cada estado.
+
+4. **Reutilización de código**: Si los estados son reutilizables en diferentes contextos, la **Opción B** podría ser más adecuada, ya que los estados no están fuertemente acoplados a un contexto específico.
+
+En resumen, la elección entre la **Opción A** y la **Opción B** depende de las necesidades específicas de tu diseño. Ambas opciones son válidas y tienen sus propios beneficios y desventajas. ¿Hay algo más con lo que pueda ayudarte?
+
+### ChatGpt3.5
+Claro, aquí hay algunos escenarios en los que podrías preferir una opción sobre la otra, basándote en ciertas necesidades y consideraciones específicas:
+
+1. **Reutilización y Multiplicidad de Estados:**
+   - Si tu aplicación requiere la posibilidad de tener múltiples instancias de `TrafficLight` con diferentes estados simultáneamente, la opción B (devolver una nueva instancia) podría ser más apropiada. Esto permitiría tener diferentes semáforos con estados independientes y podría facilitar la gestión de múltiples situaciones de tráfico.
+
+   ```java
+   TrafficLight currentLight = new TrafficLight();
+   TrafficLight nextLight = currentLight.changeLight(); // Creando una nueva instancia
+   ```
+
+2. **Mantenimiento del Estado Actual:**
+   - Si necesitas mantener inalterado el estado actual del semáforo y solo cambiar al siguiente estado, la opción B también sería más adecuada. La opción A modifica directamente el objeto actual, lo que puede no ser deseado en ciertos casos.
+
+   ```java
+   TrafficLight currentLight = new TrafficLight();
+   TrafficLight nextLight = currentLight.changeLight(); // Creando una nueva instancia
+   ```
+
+3. **Transiciones Específicas del Estado:**
+   - Si cada transición de estado implica una lógica más compleja y específica, la opción A podría ser preferible. Esto se debe a que el método `changeLight` puede acceder a las propiedades internas del `TrafficLight` actual para tomar decisiones más informadas sobre la transición.
+
+   ```java
+   public void changeLight(TrafficLight trafficLight) {
+       if (trafficLight.isEmergencyMode()) {
+           // Lógica específica para casos de emergencia
+       } else {
+           // Lógica estándar de cambio de luz
+       }
+   }
+   ```
+
+4. **Evitar la Creación Excesiva de Objetos:**
+   - Si estás preocupado por el rendimiento y deseas evitar la creación excesiva de objetos, la opción A podría ser más eficiente, ya que modifica directamente el objeto existente en lugar de crear una nueva instancia en cada transición.
+
+   ```java
+   public void changeLight(TrafficLight trafficLight) {
+       // Modificar directamente el objeto existente
+   }
+   ```
+
+Recuerda que estas son solo consideraciones generales y que la elección entre ambas opciones dependerá de los detalles específicos de tu aplicación y los requisitos de diseño. Puedes evaluar cada opción en función de cómo se alinee con las necesidades particulares de tu proyecto.
